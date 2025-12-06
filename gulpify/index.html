@@ -3,144 +3,237 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  
-       <meta name="keywords" content="Gulpify, Oleksandr Kriatov, Food &amp; Drink, ios apps, android apps, app, appstore, app store, iphone, android, playstore">
-
-      <meta name="description" content="Stay hydrated with Gulpify
-Gulpify helps you track your daily water intake, set personalized hydration goals, and stay motivated with progress charts and achiev…">
+  <meta name="keywords" content="Gulpify, Oleksandr Kriatov, hydration tracker, iOS, Android, water intake, Flutter app">
+  <meta name="description" content="Gulpify – minimalist hydration tracker by Oleksandr Kriatov. Smart goals, quick logging, and calm visuals for iOS and Android.">
   <title>Gulpify – Hydration Tracker</title>
-        <meta property="og:title" content="‎Gulpify">
-        <meta property="og:description" content="‎Stay hydrated with Gulpify
-Gulpify helps you track your daily water intake, set personalized hydration goals, and stay motivated with progress charts and achievements.
-Whether you want to improve your energy, skin, or overall wellness, Gulpify makes hydration simple, smart, and stress-free.">
-        <meta property="og:url" content="https://apps.apple.com/us/app/gulpify/id6746389177">
-        <meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/26/fb/89/26fb8936-5af4-d273-db43-8cda0601ba10/AppIcon-1x_U007emarketing-0-11-0-0-85-220-0.png/1200x630wa.png">
-        <meta property="og:image:alt" content="Gulpify">
-        <meta property="og:image:type" content="image/png">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
-        <meta property="og:image:secure_url" content="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/26/fb/89/26fb8936-5af4-d273-db43-8cda0601ba10/AppIcon-1x_U007emarketing-0-11-0-0-85-220-0.png/1200x630wa.png">
-        <meta property="og:type" content="website">
-        <meta property="og:locale" content="en_US">
-
-        <meta name="twitter:title" content="‎Gulpify">
-        <meta name="twitter:description" content="‎Stay hydrated with Gulpify
-Gulpify helps you track your daily water intake, set personalized hydration goals, and stay motivated with progress charts and achievements.
-Whether you want to improve your energy, skin, or overall wellness, Gulpify makes hydration simple, smart, and stress-free.">
-        <meta name="twitter:site" content="@AppStore">
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:image" content="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/26/fb/89/26fb8936-5af4-d273-db43-8cda0601ba10/AppIcon-1x_U007emarketing-0-11-0-0-85-220-0.png/1200x600wa.png">
-        <meta name="twitter:image:alt" content="Gulpify">
+  <meta property="og:title" content="Gulpify – Hydration Tracker">
+  <meta property="og:description" content="Stay hydrated with smart goals, smooth logging, and streaks. Available on iOS and Android.">
+  <meta property="og:url" content="https://alexkriatov.github.io/public/gulpify/">
+  <meta property="og:image" content="https://alexkriatov.github.io/public/gulpify/gulpify-preview.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gulpify – Hydration Tracker">
+  <meta name="twitter:description" content="Stay hydrated with smart goals, smooth logging, and streaks. Available on iOS and Android.">
+  <meta name="twitter:image" content="https://alexkriatov.github.io/public/gulpify/gulpify-preview.png">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #0b1220;
+      --panel: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #e7edf7;
+      --muted: #9fb1cc;
+      --accent: #22d3ee;
+      --accent-2: #f97316;
+      --shadow: 0 20px 60px rgba(4, 7, 20, 0.55);
+      --radius: 18px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #f7f9fc;
-      color: #333;
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: radial-gradient(circle at 10% 20%, rgba(34, 211, 238, 0.12), transparent 25%),
+                  radial-gradient(circle at 85% 10%, rgba(249, 115, 22, 0.12), transparent 26%),
+                  linear-gradient(135deg, #0b1220, #0f172a 45%, #0b1220);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+      padding-top: 88px;
+      position: relative;
+      overflow-x: hidden;
     }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(1100px at 20% 20%, rgba(34, 211, 238, 0.08), transparent 40%),
+                  radial-gradient(900px at 80% 0%, rgba(249, 115, 22, 0.08), transparent 45%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    h1, h2, h3 { font-family: 'Sora', sans-serif; color: #f8fbff; }
+    a { color: var(--text); text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+    html { scroll-behavior: smooth; }
+
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+    .section { padding: 78px 0; position: relative; }
+    .eyebrow { color: var(--accent); letter-spacing: 0.08em; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
+    .muted { color: var(--muted); }
+
     header {
-      background: #00BBFB;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-    header p {
-      margin-top: 12px;
-      font-size: 1.1rem;
-    }
-    main {
-      padding: 40px 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-    section {
-      margin-bottom: 40px;
-    }
-    h2 {
-      color: #00BBFB;
-    }
-    .screenshots {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .screenshots img {
+      position: fixed;
+      top: 0;
       width: 100%;
-      max-width: 240px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      backdrop-filter: blur(14px);
+      background: rgba(11, 18, 32, 0.82);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
     }
-    footer {
-      text-align: center;
+    nav { max-width: 1080px; margin: 0 auto; padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.02em; }
+    .logo span { width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(34, 211, 238, 0.18), rgba(249, 115, 22, 0.22)); color: #fff; }
+    .nav-links { display: none; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .nav-actions a { padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,0.04); color: #fff; font-weight: 600; transition: all 0.25s ease; }
+    .nav-actions a:hover,
+    .nav-actions a.active { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.25); color: #fff; }
+
+    .hero-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 26px; align-items: center; }
+    .pill { display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); font-weight: 600; color: #fff; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
+    .pill .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent-2); }
+    .headline { font-size: clamp(2.2rem, 4vw, 2.8rem); line-height: 1.15; margin: 12px 0 14px; }
+    .lead { font-size: 1.05rem; max-width: 640px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+    .btn { padding: 12px 18px; border-radius: 12px; font-weight: 700; border: 1px solid var(--border); color: #fff; background: var(--panel); transition: all 0.25s ease; }
+    .btn.primary { background: linear-gradient(135deg, #f97316, #f59e0b); color: #0b1220; border-color: rgba(0,0,0,0.18); box-shadow: 0 15px 40px rgba(249, 115, 22, 0.35); }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .badge { padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid var(--border); font-weight: 600; color: #fff; font-size: 0.9rem; }
+    .hero-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) + 6px);
       padding: 20px;
-      font-size: 0.9rem;
-      color: #777;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
     }
-    a {
-      color: #00BBFB;
-      text-decoration: none;
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(34,211,238,0.14), transparent 50%);
+      top: -40px; right: -60px;
     }
+    .app-icon { width: 110px; height: 110px; border-radius: 26px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,0.35); margin-bottom: 12px; }
+    .mini-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 14px; }
+    .mini-card { padding: 12px; border-radius: 14px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); }
+    .mini-card strong { display: block; color: #fff; font-size: 1.05rem; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 22px; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 18px 16px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+    .card::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(145deg, transparent 40%, rgba(255,255,255,0.04)); }
+    .card h3 { margin-bottom: 10px; font-size: 1.05rem; }
+    .card ul { color: var(--muted); display: grid; gap: 8px; }
+
+    .screens { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
+    .screens img { width: 100%; border-radius: 16px; border: 1px solid var(--border); background: #0f172a; box-shadow: var(--shadow); }
+
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+    .links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .links a { padding: 11px 14px; border-radius: 10px; border: 1px solid var(--border); background: rgba(255,255,255,0.06); font-weight: 700; color: #fff; transition: all 0.25s; }
+    .links a:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
+
+    footer { text-align: center; padding: 24px 12px 36px; color: var(--muted); font-size: 0.9rem; }
+
+    @media (max-width: 860px) { .nav-links { display: none; } body { padding-top: 72px; } }
   </style>
 </head>
 <body>
   <header>
-    <h1>Gulpify</h1>
-    <p>Your minimalist hydration tracker. Stay hydrated, feel better.</p>
-
-    <div style="margin-top: 24px;">
-  <a href="https://apps.apple.com/app/id6746389177" target="_blank" style="margin-right: 12px;">
-    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" height="40">
-  </a>
-  <a href="https://play.google.com/store/apps/details?id=dev.kriatov.gulpify" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" height="40">
-  </a>
-</div>
-
+    <nav>
+      <div class="logo"><span>GF</span>Gulpify</div>
+      <div class="nav-actions" aria-label="Other pages">
+        <a href="../blog/">Blog</a>
+        <a href="../">Portfolio</a>
+      </div>
+    </nav>
   </header>
 
-  <main>
-    <section>
-      <h2>Why Gulpify?</h2>
-      <p>
-        Gulpify helps you track your daily water intake in the simplest way possible.
-        No accounts, no ads, no clutter — just smooth hydration logging with helpful insights.
-      </p>
-    </section>
-
-    <section>
-      <h2>Key Features</h2>
-      <ul>
-        <li>📊 Weekly and daily hydration charts</li>
-        <li>🌊 Custom drink types and volumes</li>
-        <li>📅 Calendar-based drink history</li>
-        <li>💡 Smart daily goal estimation</li>
-        <li>☁️ All data stored locally – 100% private</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Screenshots</h2>
-      <div class="screenshots">
-        <img src="screenshot1.png" alt="Hydration chart">
-        <img src="screenshot2.png" alt="Drink logging UI">
-        <img src="screenshot3.png" alt="Settings screen">
-        <!-- Replace with your real screenshot paths -->
+  <section class="section">
+    <div class="container hero-grid">
+      <div>
+      <div class="pill"><span class="dot"></span>Minimalist hydration tracker</div>
+      <h1 class="headline">Stay hydrated with smart goals and calm visuals.</h1>
+      <p class="lead muted">Gulpify keeps logging effortless, adapts goals to your rhythm, and surfaces hydration insights without clutter. Built with Flutter for a native feel on iOS and Android.</p>
+      <div class="hero-actions" id="download">
+        <a class="btn primary" href="https://apps.apple.com/app/id6746389177" target="_blank" rel="noopener">Download on App Store</a>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=dev.kriatov.gulpify" target="_blank" rel="noopener">Get it on Google Play</a>
       </div>
-    </section>
+        <div class="badge-row">
+          <span class="badge">No ads</span>
+          <span class="badge">No account</span>
+          <span class="badge">Privacy-first</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="app-icon">
+          <img src="icon.png" alt="Gulpify app icon">
+        </div>
+        <h3>Gulpify by Oleksandr Kriatov</h3>
+        <p class="muted">Hydration tracking that respects your focus and privacy. Thoughtful animations, accessible UI, and offline-friendly data.</p>
+        <div class="mini-grid">
+          <div class="mini-card"><strong>Smart goals</strong><span class="muted">Adapts to your day</span></div>
+          <div class="mini-card"><strong>Charts</strong><span class="muted">Daily & weekly trends</span></div>
+          <div class="mini-card"><strong>Streaks</strong><span class="muted">Motivation without noise</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section>
-      <h2>Contact & Privacy</h2>
-      <p>Email: <a href="mailto:oleksandr@kriatov.dev">oleksandr@kriatov.dev</a></p>
-      <p><a href="https://alexkriatov.github.io/public/gulpify/privacy-policy/">Privacy Policy</a></p>
-    </section>
-  </main>
+  <section id="features" class="section">
+    <div class="container">
+      <span class="eyebrow">Features</span>
+      <h2>Designed for consistency, not clutter</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Adaptive hydration goals</h3>
+          <ul>
+            <li>Goal estimation that adjusts to your pace and reminders.</li>
+            <li>Supports custom drink types and volumes.</li>
+            <li>Offline-first and instant sync when online.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Insightful tracking</h3>
+          <ul>
+            <li>Daily and weekly charts to spot patterns.</li>
+            <li>Calendar history for quick backfill and edits.</li>
+            <li>Lightweight streaks that encourage, not nag.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Calm experience</h3>
+          <ul>
+            <li>No accounts, no ads—your data stays on device.</li>
+            <li>Accessible UI with thoughtful motion and haptics.</li>
+            <li>Built with Flutter for a smooth native feel.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="screens" class="section">
+    <div class="container">
+      <span class="eyebrow">Screens</span>
+      <h2>A quick look at Gulpify</h2>
+      <div class="screens">
+        <img src="screenshot1.png" alt="Gulpify hydration chart screen">
+        <img src="screenshot2.png" alt="Gulpify logging UI">
+        <img src="screenshot3.png" alt="Gulpify settings screen">
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="panel">
+        <span class="eyebrow">Contact & Privacy</span>
+        <h2>Need support or have feedback?</h2>
+        <p class="muted" style="margin-bottom: 12px;">Reach out anytime. Privacy is simple: your hydration data stays on your device.</p>
+        <div class="links">
+          <a href="mailto:oleksandr@kriatov.dev">Email support</a>
+          <a href="privacy-policy/">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <footer>
-    &copy; 2025 Oleksandr Kriatov. All rights reserved.
+    &copy; 2025 Oleksandr Kriatov. Gulpify.
   </footer>
 </body>
 </html>
