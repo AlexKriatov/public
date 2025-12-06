@@ -58,10 +58,7 @@
     nav { max-width: 720px; margin: 0 auto; padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
     .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.02em; }
     .logo span { width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(34, 211, 238, 0.18), rgba(249, 115, 22, 0.22)); color: #fff; }
-    .nav-links { display: flex; align-items: center; gap: 12px; }
-    .nav-links a { padding: 10px 14px; border-radius: 12px; border: 1px solid transparent; color: var(--muted); font-weight: 600; transition: all 0.25s ease; }
-    .nav-links a:hover,
-    .nav-links a.active { color: #fff; border-color: var(--border); background: rgba(255,255,255,0.06); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+    .nav-links { display: none; }
     .nav-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .nav-actions a { padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,0.04); color: #fff; font-weight: 600; transition: all 0.25s ease; }
     .nav-actions a:hover,
@@ -77,12 +74,8 @@
   <header>
     <nav>
       <div class="logo"><span>GF</span>Gulpify</div>
-      <div class="nav-links" aria-label="On-page navigation">
-        <a href="#support" class="active">Support</a>
-      </div>
       <div class="nav-actions" aria-label="Other pages">
         <a href="../">Gulpify</a>
-        <a class="active" href="./">Support</a>
         <a href="../privacy-policy/">Privacy</a>
         <a href="../../blog/">Blog</a>
         <a href="../../">Portfolio</a>
@@ -100,7 +93,6 @@
         <div class="links">
           <a href="mailto:oleksandr@kriatov.dev">Email support</a>
           <a href="../privacy-policy/">Privacy Policy</a>
-          <a href="../">Back to Gulpify</a>
         </div>
       </div>
     </div>
