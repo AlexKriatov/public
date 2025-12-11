@@ -3,193 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog | Oleksandr Kriatov</title>
-  <meta name="description" content="Read Oleksandr Kriatov’s writing on Flutter, Android, and shipping resilient mobile products.">
-  <link rel="canonical" href="https://kriatov.dev/blog/">
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>Redirecting to blog.kriatov.dev</title>
+  <meta http-equiv="refresh" content="0; url=https://blog.kriatov.dev/">
+  <link rel="canonical" href="https://blog.kriatov.dev/">
   <style>
-    :root {
-      --bg: #0b1220;
-      --panel: rgba(255, 255, 255, 0.04);
-      --border: rgba(255, 255, 255, 0.08);
-      --text: #e7edf7;
-      --muted: #9fb1cc;
-      --accent: #22d3ee;
-      --accent-2: #f97316;
-      --shadow: 0 20px 60px rgba(4, 7, 20, 0.55);
-      --radius: 18px;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'IBM Plex Sans', sans-serif;
-      background: radial-gradient(circle at 10% 20%, rgba(34, 211, 238, 0.12), transparent 25%),
-                  radial-gradient(circle at 85% 10%, rgba(249, 115, 22, 0.12), transparent 26%),
-                  linear-gradient(135deg, #0b1220, #0f172a 45%, #0b1220);
-      color: var(--text);
-      line-height: 1.7;
-      min-height: 100vh;
-      padding-top: 88px;
-      position: relative;
-      overflow-x: hidden;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(1100px at 20% 20%, rgba(34, 211, 238, 0.08), transparent 40%),
-                  radial-gradient(900px at 80% 0%, rgba(249, 115, 22, 0.08), transparent 45%);
-      pointer-events: none;
-      z-index: -1;
-    }
-    h1, h2, h3 { font-family: 'Sora', sans-serif; color: #f8fbff; }
-    a { color: var(--text); text-decoration: none; }
-    html { scroll-behavior: smooth; }
-    img { display: block; max-width: 100%; }
-    .container { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
-    .section { padding: 78px 0; }
-    .eyebrow { color: var(--accent); letter-spacing: 0.08em; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
-    .muted { color: var(--muted); }
-
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      backdrop-filter: blur(14px);
-      background: rgba(11, 18, 32, 0.82);
-      border-bottom: 1px solid var(--border);
-      z-index: 100;
-    }
-    nav { max-width: 1080px; margin: 0 auto; padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.02em; }
-    .logo span { width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(34, 211, 238, 0.18), rgba(249, 115, 22, 0.22)); color: #fff; }
-    .nav-links { display: none; }
-    .nav-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .nav-actions a { padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,0.04); color: #fff; font-weight: 600; transition: all 0.25s ease; }
-    .nav-actions a:hover,
-    .nav-actions a.active { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.25); color: #fff; }
-
-    .hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; align-items: center; }
-    .pill { display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); font-weight: 600; color: #fff; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
-    .pill .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent-2); }
-    .headline { font-size: clamp(2.1rem, 4vw, 2.7rem); line-height: 1.15; margin: 12px 0 14px; }
-    .lead { font-size: 1.05rem; max-width: 640px; }
-
-    .post-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 22px; }
-    .post-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      box-shadow: var(--shadow);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0b1220;
+      color: #e7edf7;
       display: grid;
-      gap: 12px;
-      position: relative;
-      overflow: hidden;
+      place-items: center;
+      min-height: 100vh;
+      padding: 32px;
+      text-align: center;
     }
-    .post-card::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(145deg, transparent 40%, rgba(255,255,255,0.04)); }
-    .post-thumb { border-radius: 12px; border: 1px solid var(--border); background: #0f172a; min-height: 140px; object-fit: cover; }
-    .post-thumb.placeholder { display: grid; place-items: center; color: var(--muted); font-weight: 600; background: linear-gradient(135deg, rgba(34,211,238,0.12), rgba(249,115,22,0.12)); }
-    .post-title { font-weight: 700; font-size: 1.05rem; color: #f8fbff; }
-    .post-meta { color: var(--muted); font-size: 0.9rem; }
-    .links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
-    .links a { padding: 11px 14px; border-radius: 10px; border: 1px solid var(--border); background: rgba(255,255,255,0.06); font-weight: 700; color: #fff; transition: all 0.25s; }
-    .links a:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
-
-    footer { text-align: center; padding: 24px 12px 36px; color: var(--muted); font-size: 0.9rem; }
-    @media (max-width: 860px) { .nav-links { display: none; } body { padding-top: 72px; } }
+    a { color: #f97316; }
   </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <div class="logo"><span>OK</span>Oleksandr Kriatov</div>
-      <div class="nav-actions" aria-label="Other pages">
-        <a href="../">Portfolio</a>
-        <a href="../gulpify/">Gulpify</a>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <section id="posts" class="section">
-      <div class="container hero">
-        <div>
-          <div class="pill"><span class="dot"></span>Writing & mobile engineering</div>
-          <h1 class="headline">Notes on Flutter, Android, and building resilient apps.</h1>
-          <p class="lead muted">Recent Medium articles from @oleksandr.kriatov. Curated for practitioners who care about delivery speed, reliability, and craft.</p>
-          <div class="links">
-            <a href="https://medium.com/@oleksandr.kriatov" target="_blank" rel="noopener">View on Medium</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <span class="eyebrow">Latest posts</span>
-        <h2>Fresh from Medium</h2>
-        <div id="blog-container" class="post-grid">
-          <div class="post-card">
-            <p class="muted">Loading articles...</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    © 2025 Oleksandr Kriatov. Blog.
-  </footer>
-
-  <script>
-    async function loadMediumPosts() {
-      try {
-        const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@oleksandr.kriatov");
-        const data = await res.json();
-        const container = document.getElementById("blog-container");
-        container.innerHTML = "";
-
-        data.items.slice(0, 6).forEach(post => {
-          const thumb = post.thumbnail || (post.enclosure && post.enclosure.link) || extractFirstImage(post.content) || "";
-          const thumbMarkup = thumb
-            ? `<img class="post-thumb" src="${thumb}" alt="${post.title}" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(createPlaceholder())">`
-            : `<div class="post-thumb placeholder">Preview unavailable</div>`;
-
-          const div = document.createElement("div");
-          div.className = "post-card";
-          div.innerHTML = `
-            ${thumbMarkup}
-            <div class="post-title">${post.title}</div>
-            <div class="post-meta">${new Date(post.pubDate).toLocaleDateString()}</div>
-            <div class="links">
-              <a href="${post.link}" target="_blank" rel="noopener">Read on Medium</a>
-            </div>
-          `;
-          container.appendChild(div);
-        });
-      } catch (err) {
-        const container = document.getElementById("blog-container");
-        container.innerHTML = "";
-        const div = document.createElement("div");
-        div.className = "post-card";
-        div.innerHTML = `<p class="muted">Failed to load articles right now.</p>`;
-        container.appendChild(div);
-      }
-    }
-    function extractFirstImage(html) {
-      if (!html) return "";
-      const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
-      return match ? match[1] : "";
-    }
-
-    function createPlaceholder() {
-      const span = document.createElement("div");
-      span.className = "post-thumb placeholder";
-      span.textContent = "Preview unavailable";
-      return span;
-    }
-
-    loadMediumPosts();
-  </script>
+  <p>Redirecting to <a href="https://blog.kriatov.dev/">blog.kriatov.dev</a>…</p>
+  <script>location.replace("https://blog.kriatov.dev/");</script>
 </body>
 </html>

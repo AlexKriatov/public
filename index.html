@@ -232,6 +232,25 @@
     .links a { padding: 11px 14px; border-radius: 10px; border: 1px solid var(--border); background: rgba(255,255,255,0.06); font-weight: 700; color: #fff; transition: all 0.25s; }
     .links a:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
 
+    /* Articles */
+    .post-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 22px; }
+    .post-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .post-card::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(145deg, transparent 40%, rgba(255,255,255,0.04)); }
+    .post-thumb { border-radius: 12px; border: 1px solid var(--border); background: #0f172a; min-height: 140px; object-fit: cover; width: 100%; }
+    .post-thumb.placeholder { display: grid; place-items: center; color: var(--muted); font-weight: 600; background: linear-gradient(135deg, rgba(34,211,238,0.12), rgba(249,115,22,0.12)); }
+    .post-title { font-weight: 700; font-size: 1.05rem; color: #f8fbff; }
+    .post-meta { color: var(--muted); font-size: 0.9rem; }
+
     /* Contact */
     #contact .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 20px; }
     #contact .contact-card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
@@ -275,11 +294,12 @@
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#articles">Articles</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-actions" aria-label="Other pages">
       <a href="gulpify/">Gulpify</a>
-      <a href="blog/">Blog</a>
+      <a href="https://blog.kriatov.dev/">Blog</a>
     </div>
   </nav>
 </header>
@@ -400,6 +420,18 @@
   </div>
 </section>
 
+    <section id="articles" class="section">
+      <div class="container">
+        <span class="eyebrow">Latest posts</span>
+        <h2>Fresh from Medium</h2>
+        <div id="blog-container" class="post-grid">
+          <div class="post-card">
+            <p class="muted">Loading articles...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
 <section id="contact" class="section">
   <div class="container">
     <span class="eyebrow">Contact</span>
@@ -441,5 +473,55 @@
     });
   });
 </script>
+  <script>
+    async function loadMediumPosts() {
+      try {
+        const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@oleksandr.kriatov");
+        const data = await res.json();
+        const container = document.getElementById("blog-container");
+        container.innerHTML = "";
+
+        data.items.slice(0, 6).forEach(post => {
+          const thumb = post.thumbnail || (post.enclosure && post.enclosure.link) || extractFirstImage(post.content) || "";
+          const thumbMarkup = thumb
+            ? `<img class="post-thumb" src="${thumb}" alt="${post.title}" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(createPlaceholder())">`
+            : `<div class="post-thumb placeholder">Preview unavailable</div>`;
+
+          const div = document.createElement("div");
+          div.className = "post-card";
+          div.innerHTML = `
+            ${thumbMarkup}
+            <div class="post-title">${post.title}</div>
+            <div class="post-meta">${new Date(post.pubDate).toLocaleDateString()}</div>
+            <div class="links">
+              <a href="${post.link}" target="_blank" rel="noopener">Read on Medium</a>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      } catch (err) {
+        const container = document.getElementById("blog-container");
+        container.innerHTML = "";
+        const div = document.createElement("div");
+        div.className = "post-card";
+        div.innerHTML = `<p class="muted">Failed to load articles right now.</p>`;
+        container.appendChild(div);
+      }
+    }
+    function extractFirstImage(html) {
+      if (!html) return "";
+      const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+      return match ? match[1] : "";
+    }
+
+    function createPlaceholder() {
+      const span = document.createElement("div");
+      span.className = "post-thumb placeholder";
+      span.textContent = "Preview unavailable";
+      return span;
+    }
+
+    loadMediumPosts();
+  </script>
 </body>
 </html>
