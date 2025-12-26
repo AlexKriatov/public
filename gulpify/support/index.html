@@ -1,106 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Support – Gulpify</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="canonical" href="https://kriatov.dev/gulpify/support/">
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0b1220;
-      --panel: rgba(255, 255, 255, 0.04);
-      --border: rgba(255, 255, 255, 0.08);
-      --text: #e7edf7;
-      --muted: #9fb1cc;
-      --accent: #22d3ee;
-      --accent-2: #f97316;
-      --shadow: 0 20px 60px rgba(4, 7, 20, 0.55);
-      --radius: 18px;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'IBM Plex Sans', sans-serif;
-      background: radial-gradient(circle at 10% 20%, rgba(34, 211, 238, 0.12), transparent 25%),
-                  radial-gradient(circle at 85% 10%, rgba(249, 115, 22, 0.12), transparent 26%),
-                  linear-gradient(135deg, #0b1220, #0f172a 45%, #0b1220);
-      color: var(--text);
-      line-height: 1.7;
-      min-height: 100vh;
-      padding-top: 88px;
-      position: relative;
-      overflow-x: hidden;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(1100px at 20% 20%, rgba(34, 211, 238, 0.08), transparent 40%),
-                  radial-gradient(900px at 80% 0%, rgba(249, 115, 22, 0.08), transparent 45%);
-      pointer-events: none;
-      z-index: -1;
-    }
-    h1, h2, h3 { font-family: 'Sora', sans-serif; color: #f8fbff; }
-    a { color: var(--text); text-decoration: none; }
-    .muted { color: var(--muted); }
-    .container { max-width: 720px; margin: 0 auto; padding: 0 22px; }
-    .section { padding: 70px 0; }
-    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
-    .eyebrow { color: var(--accent); letter-spacing: 0.08em; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      backdrop-filter: blur(14px);
-      background: rgba(11, 18, 32, 0.82);
-      border-bottom: 1px solid var(--border);
-      z-index: 100;
-    }
-    nav { max-width: 720px; margin: 0 auto; padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.02em; }
-    .logo span { width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(34, 211, 238, 0.18), rgba(249, 115, 22, 0.22)); color: #fff; }
-    .nav-links { display: none; }
-    .nav-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .nav-actions a { padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,0.04); color: #fff; font-weight: 600; transition: all 0.25s ease; }
-    .nav-actions a:hover,
-    .nav-actions a.active { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.25); color: #fff; }
-    .links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
-    .links a { padding: 11px 14px; border-radius: 10px; border: 1px solid var(--border); background: rgba(255,255,255,0.06); font-weight: 700; color: #fff; transition: all 0.25s; }
-    .links a:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
-    footer { text-align: center; padding: 24px 12px 36px; color: var(--muted); font-size: 0.9rem; }
-    @media (max-width: 860px) { .nav-links { display: none; } body { padding-top: 72px; } }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="refresh" content="0; url=https://gulpify.kriatov.dev/support/" />
+  <link rel="canonical" href="https://gulpify.kriatov.dev/support/" />
+  <title>Redirecting to Gulpify Support</title>
 </head>
 <body>
-  <header>
-    <nav>
-      <div class="logo"><span>GF</span>Gulpify</div>
-      <div class="nav-actions" aria-label="Other pages">
-        <a href="../">Gulpify</a>
-        <a href="../privacy-policy/">Privacy</a>
-        <a href="https://blog.kriatov.dev/">Blog</a>
-        <a href="../../">Portfolio</a>
-        <a href="../../#contact">Contact</a>
-      </div>
-    </nav>
-  </header>
-
-  <main id="support" class="section">
-    <div class="container">
-      <div class="panel">
-        <span class="eyebrow">Support</span>
-        <h1>How can we help?</h1>
-        <p class="muted">If you have questions, suggestions, or need assistance with Gulpify, reach out anytime.</p>
-        <div class="links">
-          <a href="mailto:oleksandr@kriatov.dev">Email support</a>
-          <a href="../privacy-policy/">Privacy Policy</a>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    &copy; 2025 Oleksandr Kriatov. Gulpify.
-  </footer>
+  <p>If you are not redirected, visit <a href="https://gulpify.kriatov.dev/support/">https://gulpify.kriatov.dev/support/</a>.</p>
+  <script>
+    window.location.replace('https://gulpify.kriatov.dev/support/');
+  </script>
 </body>
 </html>
