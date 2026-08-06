@@ -583,6 +583,24 @@
 </script>
   <script>
     const CREDLY_PROFILE_ID = "oleksandr-kriatov";
+    const CREDLY_ALLORIGINS_URL = "https://api.allorigins.win/get?url=";
+
+    function buildCredlyEndpoint() {
+      const target = `https://www.credly.com/users/${CREDLY_PROFILE_ID}/badges.json`;
+      return `${CREDLY_ALLORIGINS_URL}${encodeURIComponent(target)}`;
+    }
+
+    function parseCredlyResponse(payload) {
+      if (payload?.data && Array.isArray(payload.data)) {
+        return payload;
+      }
+
+      if (typeof payload?.contents === "string") {
+        return JSON.parse(payload.contents);
+      }
+
+      throw new Error("Unexpected Credly payload shape");
+    }
 
     function formatBadgeDate(value) {
       if (!value) return "Date unavailable";
@@ -640,7 +658,7 @@
       const status = document.getElementById("credly-status");
       const container = document.getElementById("credly-badges");
       const marquee = document.getElementById("credly-marquee");
-      const endpoint = `https://www.credly.com/users/${CREDLY_PROFILE_ID}/badges.json`;
+      const endpoint = buildCredlyEndpoint();
 
       try {
         const res = await fetch(endpoint, {
@@ -653,7 +671,8 @@
           throw new Error(`HTTP ${res.status}`);
         }
 
-        const data = await res.json();
+        const raw = await res.json();
+        const data = parseCredlyResponse(raw);
         const items = Array.isArray(data?.data) ? data.data : [];
 
         if (!items.length) {
@@ -665,7 +684,7 @@
         status.hidden = true;
         renderCredlyBadges(items);
       } catch (err) {
-        status.innerHTML = `Failed to load public badges from Credly. Direct browser fetch may be blocked by CORS or the profile id may be incorrect. Current source: <code>${endpoint}</code>`;
+        status.innerHTML = `Failed to load public badges. The Credly source or proxy may be unavailable. Current source: <code>${endpoint}</code>`;
         container.innerHTML = "";
         marquee.hidden = true;
       }
