@@ -598,10 +598,10 @@
       if (typeof payload?.contents === "string") {
         return JSON.parse(payload.contents);
       }
-
+      
       throw new Error("Unexpected Credly payload shape");
     }
- 
+
     function formatBadgeDate(value) {
       if (!value) return "Date unavailable";
       const date = new Date(value);
