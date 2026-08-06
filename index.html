@@ -169,6 +169,95 @@
     .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
     .tag { padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid var(--border); color: #fff; font-weight: 600; font-size: 0.9rem; }
 
+    /* Credly badges */
+    .badges-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .badges-marquee {
+      margin-top: 22px;
+      overflow: hidden;
+      position: relative;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    }
+    .badges-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      animation: badges-slide 38s linear infinite;
+      will-change: transform;
+    }
+    .badges-marquee:hover .badges-track {
+      animation-play-state: paused;
+    }
+    .badge-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 14px;
+      position: relative;
+      overflow: hidden;
+      width: min(320px, calc(100vw - 48px));
+      text-align: center;
+      justify-items: center;
+      align-content: start;
+    }
+    .badge-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(145deg, transparent 40%, rgba(255,255,255,0.04));
+    }
+    .badge-card img {
+      width: 136px;
+      height: 136px;
+      object-fit: contain;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      padding: 10px;
+    }
+    .badge-card h3 {
+      font-size: 1.05rem;
+      line-height: 1.35;
+      margin: 0;
+    }
+    .badge-meta {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      justify-items: center;
+    }
+    .badge-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+      justify-content: center;
+    }
+    .badge-status {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      box-shadow: var(--shadow);
+    }
+    @keyframes badges-slide {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(-50% - 9px)); }
+    }
+
     /* Experience */
     .timeline { margin-top: 22px; border-left: 1px solid var(--border); padding-left: 22px; display: grid; gap: 24px; }
     .timeline-item { position: relative; }
@@ -292,6 +381,7 @@
     <ul aria-label="Primary navigation">
       <li><a href="#hero">Home</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#certifications">Certifications</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#articles">Articles</a></li>
@@ -392,6 +482,20 @@
   </div>
 </section>
 
+<section id="certifications" class="section">
+  <div class="container">
+    <div class="badges-header">
+      <div>
+        <h2>Verified badges and certifications</h2>
+      </div>
+    </div>
+    <div id="credly-status" class="badge-status">Loading public badges from Credly...</div>
+    <div id="credly-marquee" class="badges-marquee" hidden>
+      <div id="credly-badges" class="badges-track"></div>
+    </div>
+  </div>
+</section>
+
 <section id="projects" class="section">
   <div class="container">
     <span class="eyebrow">Selected Work</span>
@@ -450,6 +554,10 @@
         <strong>GitHub</strong>
         <a href="https://github.com/alexkriatov" target="_blank" rel="noopener">alexkriatov</a>
       </div>
+      <div class="contact-card">
+        <strong>Credly</strong>
+        <a href="https://www.credly.com/users/oleksandr-kriatov" target="_blank" rel="noopener">View profile</a>
+      </div>
     </div>
   </div>
 </section>
@@ -474,6 +582,95 @@
   });
 </script>
   <script>
+    const CREDLY_PROFILE_ID = "oleksandr-kriatov";
+
+    function formatBadgeDate(value) {
+      if (!value) return "Date unavailable";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "Date unavailable";
+      return date.toLocaleDateString(undefined, { year: "numeric", month: "short" });
+    }
+
+    function getBadgeIssuer(badge) {
+      const entities = badge?.badge_template?.issuer?.entities;
+      if (!Array.isArray(entities) || !entities.length) return "Issuer unavailable";
+      return entities
+        .map(item => item?.entity?.name)
+        .filter(Boolean)
+        .join(", ");
+    }
+
+    function getBadgePublicUrl(badge) {
+      if (badge?.public_url) return badge.public_url;
+      if (badge?.id) return `https://www.credly.com/badges/${badge.id}/public_url`;
+      return "https://www.credly.com/";
+    }
+
+    function renderCredlyBadges(items) {
+      const container = document.getElementById("credly-badges");
+      const marquee = document.getElementById("credly-marquee");
+      container.innerHTML = "";
+
+      const galleryItems = items.length > 1 ? [...items, ...items] : items;
+
+      galleryItems.forEach(badge => {
+        const card = document.createElement("article");
+        card.className = "badge-card";
+        card.innerHTML = `
+          <img src="${badge.image_url || badge.badge_template?.image_url || ""}" alt="${badge.badge_template?.name || "Credly badge"}" loading="lazy">
+          <div>
+            <h3>${badge.badge_template?.name || "Untitled badge"}</h3>
+            <div class="badge-meta">
+              <span>${getBadgeIssuer(badge)}</span>
+              <span>Issued ${formatBadgeDate(badge.issued_at || badge.issued_at_date)}</span>
+              ${badge.expires_at ? `<span>Expires ${formatBadgeDate(badge.expires_at)}</span>` : ""}
+            </div>
+          </div>
+          <div class="badge-actions links">
+            <a href="${getBadgePublicUrl(badge)}" target="_blank" rel="noopener">Verify badge</a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      marquee.hidden = false;
+    }
+
+    async function loadCredlyBadges() {
+      const status = document.getElementById("credly-status");
+      const container = document.getElementById("credly-badges");
+      const marquee = document.getElementById("credly-marquee");
+      const endpoint = `https://www.credly.com/users/${CREDLY_PROFILE_ID}/badges.json`;
+
+      try {
+        const res = await fetch(endpoint, {
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+
+        const data = await res.json();
+        const items = Array.isArray(data?.data) ? data.data : [];
+
+        if (!items.length) {
+          status.textContent = "No public badges were returned by Credly.";
+          marquee.hidden = true;
+          return;
+        }
+
+        status.hidden = true;
+        renderCredlyBadges(items);
+      } catch (err) {
+        status.innerHTML = `Failed to load public badges from Credly. Direct browser fetch may be blocked by CORS or the profile id may be incorrect. Current source: <code>${endpoint}</code>`;
+        container.innerHTML = "";
+        marquee.hidden = true;
+      }
+    }
+
     async function loadMediumPosts() {
       try {
         const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@oleksandr.kriatov");
@@ -521,6 +718,7 @@
       return span;
     }
 
+    loadCredlyBadges();
     loadMediumPosts();
   </script>
 </body>
