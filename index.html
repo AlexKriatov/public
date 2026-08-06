@@ -563,7 +563,7 @@
 </section>
 
 <footer>
-  &copy; 2025 Oleksandr Kriatov. All rights reserved.
+  &copy; 2026 Oleksandr Kriatov. All rights reserved.
 </footer>
 
 <script>
@@ -655,6 +655,8 @@
     }
 
     async function loadCredlyBadges() {
+      const section = document.getElementById("certifications");
+      const navLink = document.querySelector('nav a[href="#certifications"]');
       const status = document.getElementById("credly-status");
       const container = document.getElementById("credly-badges");
       const marquee = document.getElementById("credly-marquee");
@@ -676,7 +678,8 @@
         const items = Array.isArray(data?.data) ? data.data : [];
 
         if (!items.length) {
-          status.textContent = "No public badges were returned by Credly.";
+          section.hidden = true;
+          if (navLink) navLink.parentElement.hidden = true;
           marquee.hidden = true;
           return;
         }
@@ -684,7 +687,8 @@
         status.hidden = true;
         renderCredlyBadges(items);
       } catch (err) {
-        status.innerHTML = `Failed to load public badges. The Credly source or proxy may be unavailable. Current source: <code>${endpoint}</code>`;
+        section.hidden = true;
+        if (navLink) navLink.parentElement.hidden = true;
         container.innerHTML = "";
         marquee.hidden = true;
       }
